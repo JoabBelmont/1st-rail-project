@@ -1,0 +1,58 @@
+<div class="w-full">
+
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Products</h1>
+    <%= link_to "New product", new_product_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  </div>
+
+  <br/>
+
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            Name
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Price
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Category
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Color
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Actions
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @products.each do |product| %>
+          <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 hover:bg-gray-100 even:dark:bg-gray-800 border-b dark:border-gray-700">
+            <th scope="row" class="px-6 py-4 font-medium text-xl text-gray-900 whitespace-nowrap dark:text-white">
+              <%= link_to product.name, product_path(product) %>
+            </th>
+            <td class="px-6 py-4">
+              <%= number_to_currency(product.price) %>
+            </td>
+            <td class="px-6 py-4">
+              <%= product.category %>
+            </td>
+            <td class="px-6 py-4">
+              <%= product.color %>
+            </td>
+            <td class="px-6 py-4">
+              <%= link_to "Edit", edit_product_path(product), class: "text-blue-600 font-medium" %> |
+              <%= link_to "Delete", product_path(product), method: :delete, data: { confirm: "Are you sure?" }, class: "text-blue-600 font-medium" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
