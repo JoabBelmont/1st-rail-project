@@ -1,45 +1,29 @@
-<div id="<%= dom_id product %>">
-  <section class="bg-white dark:bg-gray-900">
-    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
-        <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">
-            <h1 class="text-gray-900 dark:text-white text-3xl md:text-5xl font-extrabold mb-2">
-              <%= product.name %>
-            </h1>
-            <br/>
-            <h1 class="font-medium text-4xl">
-              <%= number_to_currency(product.price) %>
-            </h1>
-            <br/>
-            <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">
-              <%= product.description %>
-            </p>
-            <div class="my-5 flex flex-wrap">
-              <div class="flex items-center mr-8">
-                <strong class="font-medium mr-2">Color:</strong>
-                <span class="font-medium"><%= product.color %></span>
-              </div>
-              <div class="flex items-center">
-                <strong class="font-medium mr-2">Category:</strong>
-                <span class="font-medium"><%= product.category %></span>
-              </div>
-            </div>
-            <%= 
-              link_to "Add to Cart", 
-              edit_product_path(product), 
-              class: "inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
-            %>
-            <%= 
-              link_to "Buy", 
-              edit_product_path(product), 
-              class: "inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
-            %>
-        </div>
-    </div>
-</section>
+<tr class="odd:bg-white even:bg-gray-50 hover:bg-gray-100 border-b" id="<%= dom_id product %>">
+  <th scope="row" class="px-6 py-4 font-medium text-xl text-gray-900 whitespace-nowrap">
+    <%= link_to product.name, product_path(product) %>
+  </th>
+  <td class="px-6 py-4">
+    <%= number_to_currency(product.price) %>
+  </td>
+  <td class="px-6 py-4">
+    <%= product.category %>
+  </td>
+  <td class="px-6 py-4">
+    <%= product.color %>
+  </td>
+  <td class="px-6 py-4">
 
-  <% if action_name != "show" %>
-    <%= link_to "Show this product", product, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this product", edit_product_path(product), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
-</div>
+    <div class="inline-flex rounded-md shadow-sm">
+      <%= form_with(url: cart_add_path) do %>
+        <%= hidden_field_tag :id, product.id %>
+        <%= hidden_field_tag :quantity, 1 %>
+        <%= submit_tag "Add to Cart", class:"px-4 py-2 text-sm font-medium text-blue-700 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700", style: "cursor: pointer;" %>
+      <% end %>
+
+      <%= link_to "Edit", edit_product_path(product), class: "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700" %>
+
+      <%= link_to "Delete", product_path(product), method: :delete, data: { confirm: "Are you sure?" }, class: "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700" %>
+    </div>
+
+  </td>
+</tr>

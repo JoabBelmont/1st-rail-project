@@ -16,8 +16,11 @@
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 m-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+    <div class="relative">
+      <%= render partial: "cart/cart" if @render_cart %>
+      <main class="container mx-auto mt-28 px-5 flex <%= @render_cart ? "mr-64" : "" %>">
+        <%= yield %>
+      </main>
+    </div>
   </body>
 </html>

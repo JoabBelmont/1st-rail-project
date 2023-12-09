@@ -9,7 +9,7 @@
           <% if user_signed_in? %>
             <div style="display: inline-block;">
               <%= form_tag(destroy_user_session_path, method: :delete) do %>
-                <%= submit_tag "Sign Out", class: "inline-flex items-center py-2 px-3 text-m font-medium text-gray-900 rounded-lg hover:bg-gray-100 md:mt-0 md:ml-4 dark:text-white dark:hover:bg-gray-700" %>
+                <%= submit_tag "Sign Out", class: "inline-flex items-center py-2 px-3 text-m font-medium text-gray-900 rounded-lg hover:bg-gray-100 md:mt-0 md:ml-4 dark:text-white dark:hover:bg-gray-700", style: "cursor: pointer;" %>
               <% end %>
             </div>
           <% else %>
@@ -20,9 +20,14 @@
               link_to "Sign In", new_user_session_path, class: "inline-flex items-center py-2 px-3 text-m font-medium text-gray-900 rounded-lg hover:bg-gray-100 md:mt-0 md:ml-4 dark:text-white dark:hover:bg-gray-700"
             %>
           <% end %>
-          <%=
-            link_to "Cart", root_path, class: "inline-flex items-center py-2 px-3 text-m font-medium text-gray-900 rounded-lg hover:bg-gray-100 md:mt-0 md:ml-4 dark:text-white dark:hover:bg-gray-700"
-          %>
+            <%= link_to cart_path, class: "inline-flex items-center py-2 px-3 text-m font-medium text-gray-900 rounded-lg hover:bg-gray-100 md:mt-0 md:ml-4 dark:text-white dark:hover:bg-gray-700" do %>
+              Cart 
+              <% if @cart.orderables.count > 0 %>
+                <span class="bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center ml-1 text-xs">
+                  <%= @cart.orderables.count %>
+                </span>
+              <% end %>
+            <% end %>
         </li>
       </ul>
     </div>

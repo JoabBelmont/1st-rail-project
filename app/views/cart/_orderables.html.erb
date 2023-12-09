@@ -1,0 +1,21 @@
+<% @cart.orderables.each do |orderable| %>
+  <% product = orderable.product %>
+  <li id="<%= "cart-#{product.id}" %>">
+    <div class="border-b border-gray-300 mb-4 pb-4">
+      <%= link_to product.name, product_path(product), class:"font-medium text-xl text-gray-900 whitespace-nowrap" %>
+      <%= content_tag(:div, number_to_currency(product.price))%>
+      <p class="mb-5">Current quantity: <%= orderable.quantity %></p>
+      
+      <%= form_with(url: cart_add_path) do %>
+        <%= hidden_field_tag :id, product.id %>
+        <p>Select the quantity:</p>
+        <%= number_field_tag :quantity, orderable.quantity, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", id: "number-input", placeholder: "90210", required: true, min: 0 %>
+        <%= submit_tag "Confirm", class: "mt-2 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded", style: "cursor: pointer;" %>
+      <% end %>
+      <%= form_with(url: cart_remove_path) do %>
+        <%= hidden_field_tag :id, orderable.id %>
+        <%= submit_tag "Remove from Cart", class: "mt-2 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded", style: "cursor: pointer;" %>
+      <% end %>
+    </div>
+  </li>
+<% end %>
