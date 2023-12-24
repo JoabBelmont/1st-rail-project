@@ -4,12 +4,11 @@
       <div class="flex justify-center mb-4">
         <p class="text-center">Subtotal: <%= number_to_currency(@cart.total) %></p>
       </div>
-      <div class="flex justify-center mb-4">
-        <%= link_to "Go to Cart", cart_path, class: "max-w-sm w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center", style: "cursor: pointer;" %>
-      </div>
       <div class="border-b border-gray-300 mb-4"></div>
       <ul class="space-y-2 font-medium">
-        <%= render partial: "cart/orderables", locals: { cart: @cart } %>
+        <% @cart.orderables.each do |orderable| %>
+          <%= render 'cart/side_orderables', orderable: orderable %>
+        <% end %>
       </ul>
     </div>
   </aside>

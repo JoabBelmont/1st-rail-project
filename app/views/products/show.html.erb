@@ -26,15 +26,16 @@
                 <span class="font-medium"><%= @product.category %></span>
               </div>
             </div>
-            <form action="<%= cart_add_path %>" method="post" class="max-w-sm mx-auto">
+            <%= form_with(url: cart_add_path) do %>
               <%= hidden_field_tag :id, @product.id %>
-              <%= number_field_tag :quantity, 0, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", id: "number-input", placeholder: "90210", required: true, min: 0 %>
-              <%= submit_tag "Confirm", class: "mt-2 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded", style: "cursor: pointer;" %>
-            </form>
+              <p>Select the quantity:</p>
+              <%= number_field_tag :quantity, (@orderable ? @orderable.quantity : 0), class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", id: "number-input", placeholder: "90210", required: true, min: 0 %>
+              <%= submit_tag "Confirm & Add To Cart", class: "mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-3", style: "cursor: pointer;" %>
+            <% end %>
             <%= 
-              link_to "Buy", 
+              link_to "Buy This Product", 
               edit_product_path(@product), 
-              class: "inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+              class: "mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             %>
           </div>
         </div>

@@ -18,7 +18,7 @@
     <% end %>
     <div class="relative">
       <%= render partial: "cart/cart" if @render_cart %>
-      <main class="container mx-auto mt-28 px-5 flex <%= @render_cart ? "mr-64" : "" %>">
+      <main class="container mx-auto mt-28 flex">
         <%= yield %>
       </main>
     </div>

@@ -7,5 +7,7 @@ Rails.application.routes.draw do
   post "cart/remove"
   resources :products
 
+  get "cart/checkout", to: "cart#checkout"
+
   root "products#index"
 end

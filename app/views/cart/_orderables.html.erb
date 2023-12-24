@@ -1,21 +1,36 @@
-<% @cart.orderables.each do |orderable| %>
+<div id="<%= dom_id orderable %>">
   <% product = orderable.product %>
-  <li id="<%= "cart-#{product.id}" %>">
-    <div class="border-b border-gray-300 mb-4 pb-4">
-      <%= link_to product.name, product_path(product), class:"font-medium text-xl text-gray-900 whitespace-nowrap" %>
-      <%= content_tag(:div, number_to_currency(product.price))%>
-      <p class="mb-5">Current quantity: <%= orderable.quantity %></p>
-      
-      <%= form_with(url: cart_add_path) do %>
-        <%= hidden_field_tag :id, product.id %>
+  <div class="group relative">
+    <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
+      <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+    </div>
+    <div class="mt-4 flex justify-between">
+      <div>
+        <h3 class="text-m text-gray-700">
+          <%= link_to product.name, product_path(product) %>
+        </h3>
+        <p class="mt-1 text-sm text-gray-500">
+          <%= product.color %>
+        </p>
+      </div>
+      <p class="text-sm font-medium text-gray-900">
+        <%= number_to_currency(product.price) %>
+      </p>
+    </div>
+
+    <br/>
+    <p class="mb-5">Current quantity: <%= orderable.quantity %> (<%= number_to_currency(orderable.total) %>)</p>
+    <div>
+      <%= form_with(url: cart_add_path) do |f| %>
+        <%= f.hidden_field :id, value: product.id %>
         <p>Select the quantity:</p>
-        <%= number_field_tag :quantity, orderable.quantity, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", id: "number-input", placeholder: "90210", required: true, min: 0 %>
-        <%= submit_tag "Confirm", class: "mt-2 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded", style: "cursor: pointer;" %>
+        <%= f.number_field :quantity, value: orderable.quantity, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", id: "number-input", placeholder: "90210", min: 0 %>
+        <%= f.submit "Confirm", class: "mt-2 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded", style: "cursor: pointer;" %>
       <% end %>
-      <%= form_with(url: cart_remove_path) do %>
-        <%= hidden_field_tag :id, orderable.id %>
-        <%= submit_tag "Remove from Cart", class: "mt-2 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded", style: "cursor: pointer;" %>
+      <%= form_with(url: cart_remove_path) do |f| %>
+        <%= f.hidden_field :id, value: orderable.id %>
+        <%= f.submit "Remove from Cart", class: "mt-2 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded", style: "cursor: pointer;" %>
       <% end %>
     </div>
-  </li>
-<% end %>
+  </div>
+</div>
