@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between">
       <h2 class="text-4xl font-bold tracking-tight text-gray-900">Your Cart</h2>
       <% if @cart.orderables.any? %>
-        <%= link_to "Checkout (#{number_to_currency(@cart.total)})", cart_checkout_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+        <%= link_to "Checkout (#{number_to_currency(@cart.total)})", new_order_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
       <% end %>
     </div>
 

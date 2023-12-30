@@ -4,8 +4,24 @@ one:
   user: one
   status: MyString
   total: 9.99
+  full_name: MyString
+  email: MyString
+  card_holder: MyString
+  card_no: MyString
+  credit_expiry: MyString
+  credit_cvc: MyString
+  billing_address: MyString
+  billing_zip: MyString
 
 two:
   user: two
   status: MyString
   total: 9.99
+  full_name: MyString
+  email: MyString
+  card_holder: MyString
+  card_no: MyString
+  credit_expiry: MyString
+  credit_cvc: MyString
+  billing_address: MyString
+  billing_zip: MyString

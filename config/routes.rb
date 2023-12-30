@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :orders
   devise_for :users
   get "up" => "rails/health#show", as: :rails_health_check
 
@@ -6,8 +7,6 @@ Rails.application.routes.draw do
   post "cart/add"
   post "cart/remove"
   resources :products
-
-  get "cart/checkout", to: "cart#checkout"
 
   root "products#index"
 end

@@ -1,0 +1,52 @@
+<div id="<%= dom_id order %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Status:</strong>
+    <%= order.status %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Total:</strong>
+    <%= order.total %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Email:</strong>
+    <%= order.email %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Card holder:</strong>
+    <%= order.card_holder %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Card no:</strong>
+    <%= order.card_no %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Credit expiry:</strong>
+    <%= order.credit_expiry %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Credit cvc:</strong>
+    <%= order.credit_cvc %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Billing address:</strong>
+    <%= order.billing_address %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Billing zip:</strong>
+    <%= order.billing_zip %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this order", order, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this order", edit_order_path(order), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
