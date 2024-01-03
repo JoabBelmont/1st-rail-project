@@ -33,6 +33,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_render_cart
-    @render_cart = @cart&.orderables&.present?
+    @render_cart = @cart&.cart_items&.present?
   end
 end

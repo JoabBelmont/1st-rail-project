@@ -23,13 +23,16 @@ class OrdersController < ApplicationController
   # POST /orders or /orders.json
   def create
     @order = current_user.orders.build(order_params)
-
-    @cart.orderables.each do |orderable|
-      @order.orderables << orderable
-    end
+    @cart = current_user.cart
 
     respond_to do |format|
       if @order.save
+        @cart.cart_items.each do |cart_item|
+          @order.order_items.create(product_id: cart_item.product_id, quantity: cart_item.quantity, order_id: @order.id)
+        end
+
+        @cart.cart_items.destroy_all
+
         format.html { redirect_to order_url(@order), notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else
@@ -54,6 +57,7 @@ class OrdersController < ApplicationController
 
   # DELETE /orders/1 or /orders/1.json
   def destroy
+    @order.order_items.destroy_all
     @order.destroy!
 
     respond_to do |format|

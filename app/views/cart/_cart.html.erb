@@ -6,8 +6,8 @@
       </div>
       <div class="border-b border-gray-300 mb-4"></div>
       <ul class="space-y-2 font-medium">
-        <% @cart.orderables.each do |orderable| %>
-          <%= render 'cart/side_orderables', orderable: orderable %>
+        <% @cart.cart_items.each do |cart_item| %>
+          <%= render 'cart/side_cart_items', cart_item: cart_item %>
         <% end %>
       </ul>
     </div>

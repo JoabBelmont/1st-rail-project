@@ -1,5 +1,5 @@
-<div id="<%= dom_id orderable %>">
-  <% product = orderable.product %>
+<div id="<%= dom_id cart_item %>">
+  <% product = cart_item.product %>
   <div class="group relative">
     <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
       <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
@@ -17,18 +17,22 @@
         <%= number_to_currency(product.price) %>
       </p>
     </div>
-
     <br/>
-    <p class="mb-5">Current quantity: <%= orderable.quantity %> (<%= number_to_currency(orderable.total) %>)</p>
+    <p class="mb-5">
+      Current quantity: <%= cart_item.quantity %>
+      <% if cart_item.total != cart_item.product.price %>
+        (<%= number_to_currency(cart_item.total) %>)
+      <% end %>
+    </p>
     <div>
       <%= form_with(url: cart_add_path) do |f| %>
         <%= f.hidden_field :id, value: product.id %>
         <p>Select the quantity:</p>
-        <%= f.number_field :quantity, value: orderable.quantity, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", id: "number-input", placeholder: "90210", min: 0 %>
+        <%= f.number_field :quantity, value: cart_item.quantity, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", id: "number-input", placeholder: "90210", min: 0 %>
         <%= f.submit "Confirm", class: "mt-2 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded", style: "cursor: pointer;" %>
       <% end %>
       <%= form_with(url: cart_remove_path) do |f| %>
-        <%= f.hidden_field :id, value: orderable.id %>
+        <%= f.hidden_field :id, value: cart_item.id %>
         <%= f.submit "Remove from Cart", class: "mt-2 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded", style: "cursor: pointer;" %>
       <% end %>
     </div>

@@ -11,10 +11,10 @@
         <p class="mt-1 text-sm text-gray-500">
           <%= product.color %>
         </p>
+        <p class="mt-1 text-m font-medium text-gray-900">
+          <%= number_to_currency(product.price) %>
+        </p>
       </div>
-      <p class="text-sm font-medium text-gray-900">
-        <%= number_to_currency(product.price) %>
-      </p>
     </div>
 
     <br/>
@@ -22,14 +22,12 @@
       <%= form_with(url: cart_add_path) do %>
         <%= hidden_field_tag :id, product.id %>
         <%= hidden_field_tag :quantity, 1 %>
-        <%= submit_tag "Add to Cart", class:"px-4 py-2 text-sm font-medium text-blue-700 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700", style: "cursor: pointer;" %>
+        <%= submit_tag "Add to Cart", class:"px-4 py-2 text-sm font-medium text-blue-700 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700", style: "cursor: pointer" %>
       <% end %>
 
-      <% if can? :edit, product %>
+      <% if current_user.admin? %>
         <%= link_to "Edit", edit_product_path(product), class: "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700" %>
-      <% end %>
 
-      <% if can? :destroy, product %>
         <%= link_to "Delete", product_path(product), method: :delete, data: { confirm: "Are you sure?" }, class: "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700" %>
       <% end %>
     </div>

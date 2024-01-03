@@ -1,10 +1,11 @@
-<div class="w-full">
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Orders</h1>
-    <%= link_to "New order", new_order_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
+<div class="bg-white ml-52">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center justify-between">
+      <h1 class="text-4xl font-bold tracking-tight text-gray-900">Orders</h1>
+    </div>
 
-  <div id="orders" class="min-w-full">
-    <%= render @orders %>
+    <div id="orders" class="min-w-full">
+      <%= render @orders %>
+    </div>
   </div>
 </div>

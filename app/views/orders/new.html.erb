@@ -2,18 +2,18 @@
   <div class="px-4 pt-8">
     <p class="text-xl font-medium">Order Summary</p>
     <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-      <% @cart.orderables.each do |orderable| %>
+      <% @cart.cart_items.each do |cart_item| %>
         <div class="flex flex-col rounded-lg bg-white sm:flex-row">
           <div class="flex w-full flex-col px-4 py-4">
-            <span class="font-semibold"> <%= orderable.product.name %> </span>
-            <span class="float-right text-gray-400"> <%= orderable.product.color %> </span>
+            <span class="font-semibold"> <%= cart_item.product.name %> </span>
+            <span class="float-right text-gray-400"> <%= cart_item.product.color %> </span>
             <div class="flex justify-between items-center">
               <p class="mt-auto text-lg font-bold">
-                <%= number_to_currency(orderable.total) %>
+                <%= number_to_currency(cart_item.total) %>
               </p>
               <p class="text-gray-400 ml-2">
-                <% if orderable.total != orderable.product.price %>
-                  (<%= orderable.quantity %> &#215; <%= number_to_currency(orderable.product.price) %>)
+                <% if cart_item.total != cart_item.product.price %>
+                  (<%= cart_item.quantity %> &#215; <%= number_to_currency(cart_item.product.price) %>)
                 <% end %>
               </p>
             </div>
