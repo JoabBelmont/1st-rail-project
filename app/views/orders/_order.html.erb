@@ -1,65 +1,100 @@
-<div id="<%= dom_id order %>">
-
-</div>
-
-<div class="mx-auto md:w-2/3 w-full flex">
+<div class="mx-auto w-full flex">
   <div class="mx-auto">
-
     <div id="<%= dom_id order %>">
-      <section class="bg-white dark:bg-gray-900">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
-          <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">
-            <p class="my-5">
-              <strong class="block font-medium mb-1">Status:</strong>
-              <%= order.status %>
-            </p>
+      <section class="bg-white flex flex-wrap">
+      
+      	<!-- Order Information -->
+        <div class="w-full sm:w-1/2 mb-8 sm:mb-0">
+          <div class="py-8 px-4 max-w-screen-xl">
+            <% if action_name == "show" %>
+              <div class="bg-gray-50 border border-gray-200 rounded-lg p-8 md:p-12 mb-5">
+                <p>
+                  <strong class="font-medium mb-1">Billing address:</strong>
+                  <%= order.billing_address %>
+                </p>
 
-            <p class="my-5">
-              <strong class="block font-medium mb-1">Total:</strong>
-              <%= order.total %>
-            </p>
+                <p class="mb-5">
+                  <strong class="font-medium mb-1">Billing zip:</strong>
+                  <%= order.billing_zip %>
+                </p>
 
-            <p class="my-5">
-              <strong class="block font-medium mb-1">Email:</strong>
-              <%= order.email %>
-            </p>
+                <p>
+                  <strong class="font-medium mb-1">Card holder:</strong>
+                  <%= order.card_holder %>
+                </p>
+                
+                <p>
+                  <strong class="font-medium mb-1">Card no:</strong>
+                  <%= order.card_no %>
+                </p>
 
-            <p class="my-5">
-              <strong class="block font-medium mb-1">Card holder:</strong>
-              <%= order.card_holder %>
-            </p>
+                <p>
+                  <strong class="font-medium mb-1">Credit expiry:</strong>
+                  <%= order.credit_expiry %>
+                </p>
 
-            <p class="my-5">
-              <strong class="block font-medium mb-1">Card no:</strong>
-              <%= order.card_no %>
-            </p>
+                <p>
+                  <strong class="font-medium mb-1">Credit cvc:</strong>
+                  <%= order.credit_cvc %>
+                </p>
+              </div>
+            <% end %>
 
-            <p class="my-5">
-              <strong class="block font-medium mb-1">Credit expiry:</strong>
-              <%= order.credit_expiry %>
-            </p>
+            <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
+              <p class="my-5">
+                <strong class="font-medium mb-1">Total:</strong>
+                <%= number_to_currency(order.total) %>
+              </p>
+              
+              <p class="my-5">
+                <strong class="font-medium mb-1">Status:</strong>
+                <%= order.status %>
+              </p>
 
-            <p class="my-5">
-              <strong class="block font-medium mb-1">Credit cvc:</strong>
-              <%= order.credit_cvc %>
-            </p>
-
-            <p class="my-5">
-              <strong class="block font-medium mb-1">Billing address:</strong>
-              <%= order.billing_address %>
-            </p>
-
-            <p class="my-5">
-              <strong class="block font-medium mb-1">Billing zip:</strong>
-              <%= order.billing_zip %>
-            </p>
-            <%= link_to "Show this order", order, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+              <p class="my-5">
+                <strong class="font-medium mb-1">Email:</strong>
+                <%= order.email %>
+              </p>
+            </div>
           </div>
-          <% if action_name == "show" %>
-          <% end %>
         </div>
+
+        <!-- Product List -->
+        <div class="w-full sm:w-1/2">
+          <div class="py-8 px-4 max-w-screen-xl">
+          
+            <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
+              <% order.order_items.each_with_index do |order_item, index| %>
+                <div class="<%= 'border-t' unless index.zero? %>">
+                  <div class="flex flex-col rounded-lg bg-white sm:flex-row">
+                    <div class="flex w-full flex-col px-4 py-4">
+                      <span class="font-semibold"> <%= order_item.product.name %> </span>
+                      <span class="float-right text-gray-400"> <%= order_item.product.color %> </span>
+                      <div class="flex justify-between items-center">
+                        <p class="mt-auto text-lg font-bold">
+                          <%= number_to_currency(order_item.total) %>
+                        </p>
+                        <p class="text-gray-400 ml-2">
+                          <% if order_item.total != order_item.product.price %>
+                            (<%= order_item.quantity %> &#215; <%= number_to_currency(order_item.product.price) %>)
+                          <% end %>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+
+          </div>
+        </div>
+        
+        <!-- Link to Order Details -->
+        <% if action_name != "show" %>
+          <%= link_to "Order details", order, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        <% end %>
+        
       </section>
     </div>
-
   </div>
 </div>

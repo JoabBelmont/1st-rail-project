@@ -1,24 +1,5 @@
-# README
+# Online Store
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Pretty simple project. A store system that supports multiple users (Admin and Customer) and multiple products. The admin can create, update and delete products. The customer can add products to a cart, place orders and see his order history.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Still an ongoing project, but the main features are already implemented.

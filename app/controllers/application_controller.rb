@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
   before_action :initialize_cart
+  before_action :initialize_order
   before_action :set_render_cart
+
+  def initialize_order
+    @orders = Order.all
+  end
 
   def initialize_cart
     if current_user
@@ -23,16 +28,14 @@ class ApplicationController < ActionController::Base
 
   def handle_no_user
     puts 'No current user found'
-    # Handle this scenario, perhaps redirect to login or perform other actions
   end
 
   def handle_cart_save_failure
     puts 'Failed to save the cart'
     puts @cart.errors.full_messages.join(', ')
-    # You may choose to handle this differently (redirect, render, or notify user)
   end
 
   def set_render_cart
-    @render_cart = @cart&.cart_items&.present?
+    @render_cart = (!@cart&.cart_items&.empty? && current_user)
   end
 end

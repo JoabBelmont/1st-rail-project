@@ -1,8 +1,10 @@
 <div id="<%= dom_id product %>">
   <div class="group relative">
+
     <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-      <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+      <%= image_tag product.image.variant(resize_to_fill: [1216, 1680]), alt: "Product Image", class: "h-full w-full object-cover object-center lg:h-full lg:w-full" if product.image.attached? %>
     </div>
+
     <div class="mt-4 flex justify-between">
       <div>
         <h3 class="text-m text-gray-700">
@@ -25,7 +27,7 @@
         <%= submit_tag "Add to Cart", class:"px-4 py-2 text-sm font-medium text-blue-700 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700", style: "cursor: pointer" %>
       <% end %>
 
-      <% if current_user.admin? %>
+      <% if user_signed_in? && current_user.admin? %>
         <%= link_to "Edit", edit_product_path(product), class: "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700" %>
 
         <%= link_to "Delete", product_path(product), method: :delete, data: { confirm: "Are you sure?" }, class: "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700" %>

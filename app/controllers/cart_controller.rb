@@ -20,10 +20,12 @@ class CartController < ApplicationController
       format.turbo_stream do
         render turbo_stream: [
           turbo_stream.replace('cart', partial: 'cart/cart', locals: { cart: @cart }),
-          turbo_stream.replace(@cart_item)
+          turbo_stream.replace(@cart_item),
+          turbo_stream.replace('cart-count', partial: 'cart/cart_count', locals: { cart_count: @cart.cart_items.count })
         ]
       end
     end
+
   end
 
   def remove

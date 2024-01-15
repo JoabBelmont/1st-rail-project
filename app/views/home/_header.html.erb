@@ -7,9 +7,18 @@
       <ul class="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
         <li>
           <% if user_signed_in? %>
-            <%=
-              link_to "Orders", orders_path, class: "inline-flex items-center py-2 px-3 text-m font-medium text-gray-900 rounded-lg hover:bg-gray-100 md:mt-0 md:ml-4 dark:text-white dark:hover:bg-gray-700"
-            %>
+            <% if @orders.count >= 1 %>
+              <%= link_to orders_path, class: "inline-flex items-center py-2 px-3 text-m font-medium text-gray-900 rounded-lg hover:bg-gray-100 md:mt-0 md:ml-4 dark:text-white dark:hover:bg-gray-700" do %>
+                Orders 
+                <span class="bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center ml-1 text-xs">
+                  <%= @orders.count %>
+                </span>
+              <% end %>
+            <% else %>
+              <%= link_to orders_path, class: "inline-flex items-center py-2 px-3 text-m font-medium text-gray-900 rounded-lg hover:bg-gray-100 md:mt-0 md:ml-4 dark:text-white dark:hover:bg-gray-700" do %>
+                Orders 
+              <% end %>
+            <% end %>
             <div style="display: inline-block;">
               <%= form_tag(destroy_user_session_path, method: :delete) do %>
                 <%= submit_tag "Sign Out", class: "inline-flex items-center py-2 px-3 text-m font-medium text-gray-900 rounded-lg hover:bg-gray-100 md:mt-0 md:ml-4 dark:text-white dark:hover:bg-gray-700", style: "cursor: pointer;" %>
@@ -23,18 +32,20 @@
               link_to "Sign In", new_user_session_path, class: "inline-flex items-center py-2 px-3 text-m font-medium text-gray-900 rounded-lg hover:bg-gray-100 md:mt-0 md:ml-4 dark:text-white dark:hover:bg-gray-700"
             %>
           <% end %>
-            <% if @cart.present? && @cart.cart_items.present? %>
-              <%= link_to cart_path, class: "inline-flex items-center py-2 px-3 text-m font-medium text-gray-900 rounded-lg hover:bg-gray-100 md:mt-0 md:ml-4 dark:text-white dark:hover:bg-gray-700" do %>
-                Cart 
-                <span class="bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center ml-1 text-xs">
-                  <%= @cart.cart_items.count %>
-                </span>
-              <% end %>
-            <% else %>
-              <%= link_to cart_path, class: "inline-flex items-center py-2 px-3 text-m font-medium text-gray-900 rounded-lg hover:bg-gray-100 md:mt-0 md:ml-4 dark:text-white dark:hover:bg-gray-700" do %>
-                Cart 
-              <% end %>
+          <% if @cart.present? && @cart.cart_items.present? %>
+            <%= link_to cart_path, class: "inline-flex items-center py-2 px-3 text-m font-medium text-gray-900 rounded-lg hover:bg-gray-100 md:mt-0 md:ml-4 dark:text-white dark:hover:bg-gray-700" do %>
+              Cart 
+              <span id="cart-count-container">
+                <%= turbo_frame_tag "cart-count" do %>
+                  <%= render partial: 'cart/cart_count', locals: { cart_count: @cart.cart_items.count } %>
+                <% end %>
+              </span>
             <% end %>
+          <% else %>
+            <%= link_to cart_path, class: "inline-flex items-center py-2 px-3 text-m font-medium text-gray-900 rounded-lg hover:bg-gray-100 md:mt-0 md:ml-4 dark:text-white dark:hover:bg-gray-700" do %>
+              Cart 
+            <% end %>
+          <% end %>
         </li>
       </ul>
     </div>
