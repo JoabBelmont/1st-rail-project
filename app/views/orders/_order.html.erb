@@ -62,11 +62,14 @@
         <!-- Product List -->
         <div class="w-full sm:w-1/2">
           <div class="py-8 px-4 max-w-screen-xl">
-          
             <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
               <% order.order_items.each_with_index do |order_item, index| %>
                 <div class="<%= 'border-t' unless index.zero? %>">
                   <div class="flex flex-col rounded-lg bg-white sm:flex-row">
+                    <div class="flex-shrink-0">
+                      <%= image_tag order_item.product.image.variant(resize_to_fill: [120, 120]), alt: "Product Image", class: "h-full w-full object-cover object-center lg:h-full lg:w-full" if order_item.product.image.attached? %>
+                    </div>
+
                     <div class="flex w-full flex-col px-4 py-4">
                       <span class="font-semibold"> <%= order_item.product.name %> </span>
                       <span class="float-right text-gray-400"> <%= order_item.product.color %> </span>
@@ -85,15 +88,12 @@
                 </div>
               <% end %>
             </div>
-
           </div>
         </div>
-        
-        <!-- Link to Order Details -->
+
         <% if action_name != "show" %>
           <%= link_to "Order details", order, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
         <% end %>
-        
       </section>
     </div>
   </div>

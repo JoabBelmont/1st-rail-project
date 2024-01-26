@@ -9,7 +9,7 @@
 
     <div class="mt-8 sm:mt-12 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
       <% @cart.cart_items.each do |cart_item| %>
-        <%= render 'cart/cart_items', cart_item: cart_item %>
+        <%= render 'cart/cart_item', cart_item: cart_item %>
       <% end %>
     </div>
   </div>

@@ -22,8 +22,11 @@ class OrdersController < ApplicationController
 
   # POST /orders or /orders.json
   def create
-    @order = current_user.orders.build(order_params)
     @cart = current_user.cart
+    @order = current_user.orders.build(order_params)
+
+    card_holder_param = params.dig(:order, :card_holder)
+    @order.card_holder = card_holder_param.upcase if card_holder_param.present?
 
     respond_to do |format|
       if @order.save
